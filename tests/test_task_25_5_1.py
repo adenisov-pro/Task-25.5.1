@@ -7,7 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 @pytest.fixture(autouse=True)
 def testing():
-    pytest.driver = webdriver.Chrome(executable_path=r'C:\PycharmProjects\pythonProject4PetFriends\tests\chromedriver.exe')
+    pytest.driver = webdriver.Chrome(exec_path=r'C:\PycharmProjects\pythonProject4PetFriends\tests\chromedriver.exe')
    # Переходим на страницу авторизации
     pytest.driver.get('http://petfriends1.herokuapp.com/login')
 
@@ -32,7 +32,8 @@ def test_attributes():
     pytest.driver.get('http://petfriends1.herokuapp.com/all_pets')
     images = WebDriverWait(pytest.driver, 10).until(
       EC.presence_of_element_located((By.CSS_SELECTOR, '.card-deck .card-img-top')))
-    names = WebDriverWait(pytest.driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.card-deck .card-title')))
+    names = WebDriverWait(pytest.driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR,
+                                                                                   '.card-deck .card-title')))
     descriptions = WebDriverWait(pytest.driver, 10).until(
       EC.presence_of_element_located((By.CSS_SELECTOR, '.card-deck .card-text')))
     for i in range(len(names)):
@@ -74,14 +75,18 @@ def test_my_pets():
     assert photo_presence >= (len(del_pet) / 2)
    # У всех питомцев есть имя, возраст и порода.
     assert pytest.driver.find_element_by_xpath(
-      '//*[@id="all_my_pets"]/table/tbody/tr[1]' and '//*[@id="all_my_pets"]/table/tbody/tr[2]' and '//*[@id="all_my_pets"]/table/tbody/tr[3]').text != ''
+      '//*[@id="all_my_pets"]/table/tbody/tr[1]' and '//*[@id="all_my_pets"]/table/tbody/tr[2]'
+      and '//*[@id="all_my_pets"]/table/tbody/tr[3]').text != ''
    # У всех питомцев разные имена, породы и возраст.
     Name_breed_age1 = pytest.driver.find_element_by_xpath(
-      '//*[@id="all_my_pets"]/table/tbody/tr[1]/td[1]' and '//*[@id="all_my_pets"]/table/tbody/tr[1]/td[2]' and '//*[@id="all_my_pets"]/table/tbody/tr[1]/td[3]')
+      '//*[@id="all_my_pets"]/table/tbody/tr[1]/td[1]' and '//*[@id="all_my_pets"]/table/tbody/tr[1]/td[2]'
+      and '//*[@id="all_my_pets"]/table/tbody/tr[1]/td[3]')
     Name_breed_age2 = pytest.driver.find_element_by_xpath(
-      '//*[@id="all_my_pets"]/table/tbody/tr[2]/td[1]' and '//*[@id="all_my_pets"]/table/tbody/tr[2]/td[2]' and '//*[@id="all_my_pets"]/table/tbody/tr[2]/td[3]')
+      '//*[@id="all_my_pets"]/table/tbody/tr[2]/td[1]' and '//*[@id="all_my_pets"]/table/tbody/tr[2]/td[2]'
+      and '//*[@id="all_my_pets"]/table/tbody/tr[2]/td[3]')
     Name_breed_age3 = pytest.driver.find_element_by_xpath(
-      '//*[@id="all_my_pets"]/table/tbody/tr[3]/td[1]' and '//*[@id="all_my_pets"]/table/tbody/tr[3]/td[2]' and '//*[@id="all_my_pets"]/table/tbody/tr[3]/td[3]')
+      '//*[@id="all_my_pets"]/table/tbody/tr[3]/td[1]' and '//*[@id="all_my_pets"]/table/tbody/tr[3]/td[2]'
+      and '//*[@id="all_my_pets"]/table/tbody/tr[3]/td[3]')
     assert Name_breed_age1 != Name_breed_age2 != Name_breed_age3
 
 
